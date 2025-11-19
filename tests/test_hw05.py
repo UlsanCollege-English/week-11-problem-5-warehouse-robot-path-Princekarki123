@@ -1,5 +1,11 @@
 import pytest
-from hw05.main import parse_grid, grid_shortest_path
+import sys
+from pathlib import Path
+
+# Add parent directory to path so we can import main.py
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from main import parse_grid, grid_shortest_path
 
 def test_parse_finds_start_and_target():
     lines = [
@@ -32,7 +38,8 @@ def test_unreachable_returns_none():
 def test_start_equals_target():
     lines = ["ST"]
     p = grid_shortest_path(lines)
-    assert p == ["0,0"]
+    # Shortest path from S at (0,0) to T at (0,1)
+    assert p == ["0,0", "0,1"]
 
 @pytest.mark.parametrize("grid, length", [
     (["S.T"], 3),
